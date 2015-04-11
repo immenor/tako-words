@@ -39176,6 +39176,101 @@ angular.module('markdown', [])
 
 })();
 
+(function() {
+  'use strict';
+
+  angular.module('foundation.interchange', ['foundation.core', 'foundation.mediaquery'])
+    .directive('zfInterchange', zfInterchange)
+  ;
+
+  zfInterchange.$inject = [ '$compile', '$http', '$templateCache', 'FoundationApi', 'FoundationMQ'];
+
+  function zfInterchange($compile, $http, $templateCache, foundationApi, foundationMQ) {
+
+    var directive = {
+      restrict: 'EA',
+      transclude: 'element',
+      scope: {
+        position: '@'
+      },
+      replace: true,
+      template: '<div></div>',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs, ctrl, transclude) {
+      var childScope, current, scenarios, innerTemplates;
+
+      var globalQueries = foundationMQ.getMediaQueries();
+
+      //setup
+      foundationApi.subscribe('resize', function(msg) {
+        transclude(function(clone, newScope) {
+          if(!scenarios || !innerTemplates) {
+            collectInformation(clone);
+          }
+
+          var ruleMatches = foundationMQ.match(scenarios);
+          var scenario = ruleMatches.length === 0 ? null : scenarios[ruleMatches[0].ind];
+
+          //this could use some love
+          if(scenario && checkScenario(scenario)) {
+            var compiled;
+
+            if(childScope) {
+              childScope.$destroy();
+              childScope = null;
+            }
+
+            if(typeof scenario.templ !== 'undefined') {
+              childScope = newScope;
+
+              //temp container
+              var tmp = document.createElement('div');
+              tmp.appendChild(innerTemplates[scenario.templ][0]);
+
+              element.html(tmp.innerHTML);
+              $compile(element.contents())(childScope);
+              current = scenario;
+            } else {
+              var loader = templateLoader(scenario.src);
+              loader.success(function(html) {
+                childScope = newScope;
+                element.html(html);
+              }).then(function(){
+                $compile(element.contents())(childScope);
+                current = scenario;
+              });
+            }
+          }
+        });
+
+      });
+
+      //init
+      foundationApi.publish('resize', 'initial resize');
+
+      function templateLoader(templateUrl) {
+        return $http.get(templateUrl, {cache: $templateCache});
+      }
+
+      function collectInformation(el) {
+        var data = foundationMQ.collectScenariosFromElement(el);
+
+        scenarios = data.scenarios;
+        innerTemplates = data.templates;
+      }
+
+      function checkScenario(scenario) {
+        return !current || current !== scenario;
+      }
+    }
+  }
+
+})();
+
 (function () {
   'use strict';
 
@@ -39357,101 +39452,6 @@ angular.module('markdown', [])
             }
           });
         }
-      }
-    }
-  }
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('foundation.interchange', ['foundation.core', 'foundation.mediaquery'])
-    .directive('zfInterchange', zfInterchange)
-  ;
-
-  zfInterchange.$inject = [ '$compile', '$http', '$templateCache', 'FoundationApi', 'FoundationMQ'];
-
-  function zfInterchange($compile, $http, $templateCache, foundationApi, foundationMQ) {
-
-    var directive = {
-      restrict: 'EA',
-      transclude: 'element',
-      scope: {
-        position: '@'
-      },
-      replace: true,
-      template: '<div></div>',
-      link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs, ctrl, transclude) {
-      var childScope, current, scenarios, innerTemplates;
-
-      var globalQueries = foundationMQ.getMediaQueries();
-
-      //setup
-      foundationApi.subscribe('resize', function(msg) {
-        transclude(function(clone, newScope) {
-          if(!scenarios || !innerTemplates) {
-            collectInformation(clone);
-          }
-
-          var ruleMatches = foundationMQ.match(scenarios);
-          var scenario = ruleMatches.length === 0 ? null : scenarios[ruleMatches[0].ind];
-
-          //this could use some love
-          if(scenario && checkScenario(scenario)) {
-            var compiled;
-
-            if(childScope) {
-              childScope.$destroy();
-              childScope = null;
-            }
-
-            if(typeof scenario.templ !== 'undefined') {
-              childScope = newScope;
-
-              //temp container
-              var tmp = document.createElement('div');
-              tmp.appendChild(innerTemplates[scenario.templ][0]);
-
-              element.html(tmp.innerHTML);
-              $compile(element.contents())(childScope);
-              current = scenario;
-            } else {
-              var loader = templateLoader(scenario.src);
-              loader.success(function(html) {
-                childScope = newScope;
-                element.html(html);
-              }).then(function(){
-                $compile(element.contents())(childScope);
-                current = scenario;
-              });
-            }
-          }
-        });
-
-      });
-
-      //init
-      foundationApi.publish('resize', 'initial resize');
-
-      function templateLoader(templateUrl) {
-        return $http.get(templateUrl, {cache: $templateCache});
-      }
-
-      function collectInformation(el) {
-        var data = foundationMQ.collectScenariosFromElement(el);
-
-        scenarios = data.scenarios;
-        innerTemplates = data.templates;
-      }
-
-      function checkScenario(scenario) {
-        return !current || current !== scenario;
       }
     }
   }
@@ -40171,109 +40171,6 @@ angular.module('markdown', [])
 (function() {
   'use strict';
 
-  angular.module('foundation.offcanvas', ['foundation.core'])
-    .directive('zfOffcanvas', zfOffcanvas)
-    .service('FoundationOffcanvas', FoundationOffcanvas)
-  ;
-
-  FoundationOffcanvas.$inject = ['FoundationApi'];
-
-  function FoundationOffcanvas(foundationApi) {
-    var service    = {};
-
-    service.activate = activate;
-    service.deactivate = deactivate;
-
-    return service;
-
-    //target should be element ID
-    function activate(target) {
-      foundationApi.publish(target, 'show');
-    }
-
-    //target should be element ID
-    function deactivate(target) {
-      foundationApi.publish(target, 'hide');
-    }
-
-    function toggle(target) {
-      foundationApi.publish(target, 'toggle');
-    }
-  }
-
-  zfOffcanvas.$inject = ['FoundationApi'];
-
-  function zfOffcanvas(foundationApi) {
-    var directive = {
-      restrict: 'EA',
-      templateUrl: 'components/offcanvas/offcanvas.html',
-      transclude: true,
-      scope: {
-        position: '@'
-      },
-      replace: true,
-      compile: compile
-    };
-
-    return directive;
-
-    function compile(tElement, tAttrs, transclude) {
-      var type = 'offcanvas';
-
-      return {
-        pre: preLink,
-        post: postLink
-      }
-
-      function preLink(scope, iElement, iAttrs, controller) {
-        iAttrs.$set('zf-closable', type);
-        document.body.classList.add('has-off-canvas');
-      }
-
-      function postLink(scope, element, attrs) {
-        scope.position = scope.position || 'left';
-
-        scope.active = false;
-        //setup
-        foundationApi.subscribe(attrs.id, function(msg) {
-          if(msg === 'show' || msg === 'open') {
-            scope.show();
-          } else if (msg === 'close' || msg === 'hide') {
-            scope.hide();
-          } else if (msg === 'toggle') {
-            scope.toggle();
-          }
-
-          if (!scope.$root.$$phase) {
-            scope.$apply();
-          }
-          
-          return;
-        });
-
-        scope.hide = function() {
-          scope.active = false;
-          return;
-        };
-
-        scope.show = function() {
-          scope.active = true;
-          return;
-        };
-
-        scope.toggle = function() {
-          scope.active = !scope.active;
-          return;
-        };
-      }
-    }
-  }
-
-})();
-
-(function() {
-  'use strict';
-
   angular.module('foundation.panel', ['foundation.core'])
     .directive('zfPanel', zfPanel)
     .service('FoundationPanel', FoundationPanel)
@@ -40410,6 +40307,109 @@ angular.module('markdown', [])
             foundationApi.animate(element, scope.active, animationIn, animationOut);
           }
         });
+      }
+    }
+  }
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('foundation.offcanvas', ['foundation.core'])
+    .directive('zfOffcanvas', zfOffcanvas)
+    .service('FoundationOffcanvas', FoundationOffcanvas)
+  ;
+
+  FoundationOffcanvas.$inject = ['FoundationApi'];
+
+  function FoundationOffcanvas(foundationApi) {
+    var service    = {};
+
+    service.activate = activate;
+    service.deactivate = deactivate;
+
+    return service;
+
+    //target should be element ID
+    function activate(target) {
+      foundationApi.publish(target, 'show');
+    }
+
+    //target should be element ID
+    function deactivate(target) {
+      foundationApi.publish(target, 'hide');
+    }
+
+    function toggle(target) {
+      foundationApi.publish(target, 'toggle');
+    }
+  }
+
+  zfOffcanvas.$inject = ['FoundationApi'];
+
+  function zfOffcanvas(foundationApi) {
+    var directive = {
+      restrict: 'EA',
+      templateUrl: 'components/offcanvas/offcanvas.html',
+      transclude: true,
+      scope: {
+        position: '@'
+      },
+      replace: true,
+      compile: compile
+    };
+
+    return directive;
+
+    function compile(tElement, tAttrs, transclude) {
+      var type = 'offcanvas';
+
+      return {
+        pre: preLink,
+        post: postLink
+      }
+
+      function preLink(scope, iElement, iAttrs, controller) {
+        iAttrs.$set('zf-closable', type);
+        document.body.classList.add('has-off-canvas');
+      }
+
+      function postLink(scope, element, attrs) {
+        scope.position = scope.position || 'left';
+
+        scope.active = false;
+        //setup
+        foundationApi.subscribe(attrs.id, function(msg) {
+          if(msg === 'show' || msg === 'open') {
+            scope.show();
+          } else if (msg === 'close' || msg === 'hide') {
+            scope.hide();
+          } else if (msg === 'toggle') {
+            scope.toggle();
+          }
+
+          if (!scope.$root.$$phase) {
+            scope.$apply();
+          }
+          
+          return;
+        });
+
+        scope.hide = function() {
+          scope.active = false;
+          return;
+        };
+
+        scope.show = function() {
+          scope.active = true;
+          return;
+        };
+
+        scope.toggle = function() {
+          scope.active = !scope.active;
+          return;
+        };
       }
     }
   }
