@@ -1,7 +1,11 @@
 @import "settings";
 @import "foundation";
 
+
 .panel-right{
+  h1,h2,h3,h4,h5,h6{
+    color: white;
+  }
   color: white;
   padding: rem-calc(12);
   padding-top: 2rem;
@@ -26,6 +30,10 @@
   margin-top: 1rem;
   border-radius: 3% 42% 18% 38%;
   box-shadow: 0px 0 4px rgba(black, 0.25);
+}
+
+.close-button{
+  color: white;
 }
 
 .super-round{
