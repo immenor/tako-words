@@ -6156,9 +6156,10 @@ blockquote, blockquote p {
   max-width: 60%; }
 
 .primary-content {
-  padding-top: 20vh;
   height: 100vh;
   background-color: #98edda; }
+  .primary-content img {
+    padding-top: 20vh; }
   .primary-content h1 {
     margin-top: 2vh;
     text-transform: uppercase;
@@ -6180,12 +6181,12 @@ blockquote, blockquote p {
   margin-top: 10vh; }
 
 .about-content {
-  margin-top: 30vh;
   height: 100vh; }
   @media only screen and (min-width: 40em) {
     .about-content {
       padding-right: 10vh; } }
   .about-content h3 {
+    margin-top: 30vh;
     padding: 3vh; }
   .about-content .button {
     border-radius: 0.5rem; }
