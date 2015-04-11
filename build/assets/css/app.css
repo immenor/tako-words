@@ -1898,7 +1898,7 @@ meter {
     Basic styles
   */
   padding: 0;
-  background: #FF7A73; }
+  background: black; }
 
 .panel-top {
   /*
@@ -6152,17 +6152,37 @@ blockquote, blockquote p {
   .panel-right p {
     font-size: 1.1875rem; }
 
+.main-icon {
+  max-width: 60%; }
+
 .primary-content {
+  padding-top: 20vh;
   height: 100vh;
-  background-color: #57E1C2; }
+  background-color: #98edda; }
+  .primary-content span.logo-text {
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
+
+.display-content img {
+  max-height: 70vh;
+  margin-top: 20vh;
+  width: auto; }
+
+#takoTalk .display-content img {
+  margin-top: 10vh; }
 
 .about-content {
+  margin-top: 30vh;
   height: 100vh; }
+  .about-content .button {
+    border-radius: 0.5rem; }
 
 .main-page-button {
   margin-top: 2rem;
   margin-right: auto;
-  margin-left: auto; }
+  margin-left: auto;
+  border-radius: 0.5rem; }
 
 .weird-button {
   margin-top: 1rem;

@@ -556,7 +556,7 @@ $panel-size-horizontal: 100%;
 // $panel-size-vertical: 300px;
 // $panel-padding: 0;
 
-$panel-background: $alert-color;
+$panel-background: darken($primary-color, 80);
 $panel-shadow: 3px 0 4px rgba(black, 0.25);
 
 // DEPRECATED: these variables will be removed in a future version.
