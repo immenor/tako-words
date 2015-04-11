@@ -56,7 +56,9 @@
 .about-content{
   margin-top: 30vh;
   height: 100vh;
-  padding-right: 10vh;
+  @include breakpoint(medium up){
+    padding-right: 10vh;
+  }
   h3{
     padding: 3vh;
   }

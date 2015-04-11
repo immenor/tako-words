@@ -6181,8 +6181,10 @@ blockquote, blockquote p {
 
 .about-content {
   margin-top: 30vh;
-  height: 100vh;
-  padding-right: 10vh; }
+  height: 100vh; }
+  @media only screen and (min-width: 40em) {
+    .about-content {
+      padding-right: 10vh; } }
   .about-content h3 {
     padding: 3vh; }
   .about-content .button {
