@@ -6174,7 +6174,8 @@ blockquote, blockquote p {
 
 .about-content {
   margin-top: 30vh;
-  height: 100vh; }
+  height: 100vh;
+  padding-right: 10vh; }
   .about-content .button {
     border-radius: 0.5rem; }
 
