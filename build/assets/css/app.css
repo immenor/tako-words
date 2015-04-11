@@ -6147,7 +6147,8 @@ blockquote, blockquote p {
   .panel-right p {
     font-size: 1.1875rem; }
 
-.alert-color {
+.about-content {
+  height: 58vh;
   background: #FF7A73;
   color: white; }
 
