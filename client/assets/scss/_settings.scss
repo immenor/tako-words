@@ -68,7 +68,7 @@
 // 2. Global Styles
 // - - - - - - - - - - - - - - -
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,200,700);
 
 // This sets 1rem to be 16px
 // $rem-base: 16px;
@@ -94,8 +94,8 @@
 // We use these to control various global styles
 $body-background: #fff;
 $body-font-color: #96A3A0;
-$body-font-family: Roboto, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: 100;
+$body-font-family: Lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: 200;
 $body-font-style: normal;
 // $body-antialiased: true;
 
@@ -103,7 +103,7 @@ $body-font-style: normal;
 $primary-color: #57E1C2;
 $secondary-color: #96A3A0;
 $alert-color: #FF7A73;
-// $info-color: #A0D3E8;
+$info-color: #6197E1;
 // $success-color: #43AC6A;
 // $warning-color: #F08A24;
 // $dark-color: #232323;

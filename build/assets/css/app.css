@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,200,700);
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -348,8 +348,8 @@ body {
   color: #96A3A0;
   padding: 0;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-  font-weight: 100;
+  font-family: Lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-weight: 200;
   font-style: normal;
   line-height: 1;
   position: relative;
@@ -991,10 +991,10 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
         fill: #000;
         stroke: #000; }
   .button.info {
-    background: #A0D3E8;
+    background: #6197E1;
     color: #000; }
     .button.info:hover, .button.info:focus {
-      background: #71bddd;
+      background: #387cd9;
       color: #000; }
     .button.info .iconic * {
       fill: #000;
@@ -1115,25 +1115,25 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
           fill: #ff9b96;
           stroke: #ff9b96; }
     .button.hollow.info {
-      border: 1px solid #A0D3E8;
+      border: 1px solid #6197E1;
       background: transparent;
-      color: #A0D3E8; }
+      color: #6197E1; }
       .button.hollow.info:hover, .button.hollow.info:focus {
-        border-color: #b8deee;
+        border-color: #88b1e8;
         background: transparent;
-        color: #b8deee; }
+        color: #88b1e8; }
       .button.hollow.info .iconic * {
-        fill: #A0D3E8;
-        stroke: #A0D3E8; }
+        fill: #6197E1;
+        stroke: #6197E1; }
         .button.hollow.info .iconic *.iconic-property-accent {
-          fill: #A0D3E8;
-          stroke: #A0D3E8; }
+          fill: #6197E1;
+          stroke: #6197E1; }
       .button.hollow.info:hover .iconic * {
-        fill: #b8deee;
-        stroke: #b8deee; }
+        fill: #88b1e8;
+        stroke: #88b1e8; }
         .button.hollow.info:hover .iconic *.iconic-property-accent {
-          fill: #b8deee;
-          stroke: #b8deee; }
+          fill: #88b1e8;
+          stroke: #88b1e8; }
     .button.hollow.dark {
       border: 1px solid #232323;
       background: transparent;
@@ -5606,8 +5606,8 @@ p {
 
 /* Default header styles */
 h1, h2, h3, h4, h5, h6 {
-  font-family: Roboto, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-  font-weight: 100;
+  font-family: Lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-weight: 200;
   font-style: normal;
   color: #222;
   text-rendering: optimizeLegibility;
@@ -6140,6 +6140,9 @@ blockquote, blockquote p {
 .float-none {
   float: none; }
 
+.button.info {
+  color: white; }
+
 .panel-right {
   color: white;
   padding: 0.75rem;
@@ -6149,10 +6152,12 @@ blockquote, blockquote p {
   .panel-right p {
     font-size: 1.1875rem; }
 
+.primary-content {
+  height: 100vh;
+  background-color: #57E1C2; }
+
 .about-content {
-  height: 58vh;
-  background: #FF7A73;
-  color: white; }
+  height: 100vh; }
 
 .main-page-button {
   margin-top: 2rem;

@@ -2,6 +2,9 @@
 @import "foundation";
 
 
+.button.info{
+  color: white;
+}
 .panel-right{
   h1,h2,h3,h4,h5,h6{
     color: white;
@@ -13,11 +16,12 @@
     font-size: rem-calc(19);
   }
 }
-
+.primary-content{
+  height: 100vh;
+  background-color: $primary-color;
+}
 .about-content{
-  height: 58vh;
-  background: $alert-color;
-  color: white;
+  height: 100vh;
 }
 
 .main-page-button{
