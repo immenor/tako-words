@@ -6159,7 +6159,7 @@ blockquote, blockquote p {
   height: 100vh;
   background-color: #98edda; }
   .primary-content img {
-    padding-top: 20vh; }
+    padding-top: 15vh; }
   .primary-content h1 {
     margin-top: 2vh;
     text-transform: uppercase;
@@ -6174,7 +6174,7 @@ blockquote, blockquote p {
 
 .display-content img {
   max-height: 70vh;
-  margin-top: 20vh;
+  margin-top: 15vh;
   width: auto; }
 
 #takoTalk .display-content img {
@@ -6186,7 +6186,7 @@ blockquote, blockquote p {
     .about-content {
       padding-right: 10vh; } }
   .about-content h3 {
-    margin-top: 30vh;
+    margin-top: 25vh;
     padding: 3vh; }
   .about-content .button {
     border-radius: 0.5rem; }
